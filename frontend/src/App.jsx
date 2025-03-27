@@ -1,8 +1,5 @@
-
 function App() {
-  return (
-    <h1>This is a test</h1>
-  )
+    return <h1>This is a homepage</h1>
 }
 
 export default App
