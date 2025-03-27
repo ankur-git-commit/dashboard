@@ -80,8 +80,9 @@ function TodoList({ headerStyle }) {
                         color={"other"}
                         bold={false}
                     />
+
                     <MetricCard
-                        title={<span >Consolidate</span>}
+                        title={<span>Consolidate</span>}
                         value={0}
                         color={"other"}
                         bold={false}

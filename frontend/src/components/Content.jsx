@@ -6,7 +6,9 @@ import DocumentApproval from "./Section/DocumentApproval"
 import RecipientAdmin from "./Section/RecipientAdmin"
 import OrderAdmin from "./Section/OrderAdmin"
 import Reports from "./Section/Reports"
+import Support from "./Section/Support"
 import Payments from "./Section/Payments"
+
 
 function Content() {
     const className = {
@@ -53,6 +55,11 @@ function Content() {
                 </div>
                 <div className="h-full">
                     <Reports
+                        headerStyle={className.headerStyle}
+                    />
+                </div>
+                <div className="h-full">
+                    <Support
                         headerStyle={className.headerStyle}
                     />
                 </div>
