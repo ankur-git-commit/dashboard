@@ -1,15 +1,15 @@
-import { BiSolidReport } from "react-icons/bi"
-import { Link } from "react-router"
+import { BiSolidReport } from "react-icons/bi";
+import { Link } from "react-router";
 
 function Reports({ headerStyle }) {
     return (
-        <section className="shadow h-full flex flex-col">
+        <section className="flex h-full flex-col shadow">
             <header className={headerStyle}>
                 Reports
                 <BiSolidReport />
             </header>
             <div className="flex flex-row rounded-b bg-white px-3 py-6 tracking-tight">
-                <nav className="flex flex-col gap-1 text-base flex-1">
+                <nav className="flex flex-1 flex-col gap-1 text-base">
                     <Link to="/" className="hover:underline">
                         USPS Quarterly Report
                     </Link>
@@ -26,7 +26,7 @@ function Reports({ headerStyle }) {
                         Recipients On Hold
                     </Link>
                 </nav>
-                <nav className="flex flex-col gap-1 text-base flex-1">
+                <nav className="flex flex-1 flex-col gap-1 text-base">
                     <Link to="/" className="hover:underline">
                         Tasks Activity Report
                     </Link>
@@ -48,7 +48,7 @@ function Reports({ headerStyle }) {
                 </nav>
             </div>
         </section>
-    )
+    );
 }
 
-export default Reports
+export default Reports;

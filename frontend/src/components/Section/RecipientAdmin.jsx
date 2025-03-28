@@ -1,11 +1,11 @@
-import { FaUserGroup } from "react-icons/fa6"
-import { FaPlayCircle } from "react-icons/fa"
-import { Link } from "react-router"
-import MetricCard from "../Metrics/MetricCard"
+import { FaUserGroup } from "react-icons/fa6";
+import { FaPlayCircle } from "react-icons/fa";
+import { Link } from "react-router";
+import MetricCard from "../Metrics/MetricCard";
 
 function RecipientAdmin({ headerStyle, bodyStyle }) {
     return (
-        <section className="shadow h-full flex flex-col">
+        <section className="flex h-full flex-col shadow">
             <header className={headerStyle}>
                 <span className="flex flex-row items-center gap-2">
                     Recipient Admin
@@ -16,7 +16,7 @@ function RecipientAdmin({ headerStyle, bodyStyle }) {
                 </span>
                 <FaUserGroup />
             </header>
-            <div className={`${bodyStyle} flex-grow `}>
+            <div className={`${bodyStyle} flex-grow`}>
                 <MetricCard title={"Active"} color={"grey"} value={177} />
                 <div className="text-end">
                     <h3 className="text-base font-semibold">Quick Links</h3>
@@ -25,7 +25,7 @@ function RecipientAdmin({ headerStyle, bodyStyle }) {
                             Recipient Lookup
                         </Link>
                         <Link to="/" className="hover:underline">
-                        Send Email
+                            Send Email
                         </Link>
                         <Link to="/" className="hover:underline">
                             Manually add Recipient
@@ -37,7 +37,7 @@ function RecipientAdmin({ headerStyle, bodyStyle }) {
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
-export default RecipientAdmin
+export default RecipientAdmin;

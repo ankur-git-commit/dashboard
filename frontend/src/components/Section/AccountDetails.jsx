@@ -1,5 +1,5 @@
-import { FaStore } from "react-icons/fa"
-import { Link } from "react-router"
+import { FaStore } from "react-icons/fa";
+import { Link } from "react-router";
 
 function AccountDetails({
     companyName = "Global ERP Solutions",
@@ -14,10 +14,12 @@ function AccountDetails({
                 {companyName} <FaStore />
             </header>
             <div className="flex flex-row justify-between rounded-b bg-white px-3 py-6 tracking-tight">
-                <div className="flex flex-col text-sm gap-2 mt-4">
+                <div className="mt-4 flex flex-col gap-2 text-sm">
                     <p className="text-gray-700">
                         Mail Center Name:{" "}
-                        <span className="font-medium text-gray-900">{mailCenterName}</span>
+                        <span className="font-medium text-gray-900">
+                            {mailCenterName}
+                        </span>
                     </p>
                     <p className="text-gray-700">
                         Mail Center Street Address:{" "}
@@ -27,25 +29,37 @@ function AccountDetails({
                     </p>
                     <p className="text-gray-700">
                         Mail Center ID:{" "}
-                        <span className="font-medium text-gray-900">{mailCenterID}</span>
+                        <span className="font-medium text-gray-900">
+                            {mailCenterID}
+                        </span>
                     </p>
                     <p className="text-gray-700">
                         Mail Center Owner:{" "}
-                        <span className="font-medium text-gray-900">{mailCenterOwner}</span>
+                        <span className="font-medium text-gray-900">
+                            {mailCenterOwner}
+                        </span>
                     </p>
                 </div>
                 <div className="flex flex-col gap-1 text-end">
                     <h3 className="text-base font-semibold">Quick Links</h3>
                     <nav className="flex flex-col gap-1 text-xs">
-                        <Link to="/" className="underline">Send Signup Link</Link>
-                        <Link to="/" className="hover:underline">Mail Center Setup</Link>
-                        <Link to="/" className="hover:underline">iPostal1 website</Link>
-                        <Link to="/" className="hover:underline">Store Responsibility Chart</Link>
+                        <Link to="/" className="underline">
+                            Send Signup Link
+                        </Link>
+                        <Link to="/" className="hover:underline">
+                            Mail Center Setup
+                        </Link>
+                        <Link to="/" className="hover:underline">
+                            iPostal1 website
+                        </Link>
+                        <Link to="/" className="hover:underline">
+                            Store Responsibility Chart
+                        </Link>
                     </nav>
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
-export default AccountDetails
+export default AccountDetails;

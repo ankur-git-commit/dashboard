@@ -1,22 +1,22 @@
-import { FaUndo } from "react-icons/fa"
-import { IoInformation } from "react-icons/io5"
-import { MdLocalShipping } from "react-icons/md"
-import { FaRegLightbulb } from "react-icons/fa"
-import { MdQuestionMark } from "react-icons/md"
-import { TbMovie } from "react-icons/tb"
-import { FaBook } from "react-icons/fa"
-import { MdOutlineSupportAgent } from "react-icons/md"
+import { FaUndo } from "react-icons/fa";
+import { IoInformation } from "react-icons/io5";
+import { MdLocalShipping } from "react-icons/md";
+import { FaRegLightbulb } from "react-icons/fa";
+import { MdQuestionMark } from "react-icons/md";
+import { TbMovie } from "react-icons/tb";
+import { FaBook } from "react-icons/fa";
+import { MdOutlineSupportAgent } from "react-icons/md";
 
-import { Link } from "react-router"
+import { Link } from "react-router";
 
 function Support({ headerStyle }) {
     return (
-        <section className="shadow h-full flex flex-col">
+        <section className="flex h-full flex-col shadow">
             <header className={headerStyle}>
                 Support
                 <MdOutlineSupportAgent />
             </header>
-            <div className="flex flex-row flex-grow gap-4 bg-white px-3 py-6 tracking-tight justify-between">
+            <div className="flex flex-grow flex-row justify-between gap-4 bg-white px-3 py-6 tracking-tight">
                 <nav className="flex flex-col gap-1 text-sm">
                     <h3 className="text-base font-semibold">Training</h3>
                     <Link to="/" className="hover:underline">
@@ -42,7 +42,7 @@ function Support({ headerStyle }) {
                     <h3 className="text-base font-semibold">Training</h3>
                     <Link to="/" className="hover:underline">
                         <span className="flex flex-row items-center gap-1">
-                            <IoInformation  />
+                            <IoInformation />
                             Support Page / Contact Us
                         </span>
                     </Link>
@@ -73,7 +73,7 @@ function Support({ headerStyle }) {
                 </nav>
             </div>
         </section>
-    )
+    );
 }
 
-export default Support
+export default Support;

@@ -1,9 +1,9 @@
-import { FaShoppingCart } from "react-icons/fa"
-import { Link } from "react-router"
+import { FaShoppingCart } from "react-icons/fa";
+import { Link } from "react-router";
 
 function OrderAdmin({ headerStyle }) {
     return (
-        <section className="shadow h-full flex flex-col">
+        <section className="flex h-full flex-col shadow">
             <header className={headerStyle}>
                 Order Admin
                 <FaShoppingCart />
@@ -25,7 +25,7 @@ function OrderAdmin({ headerStyle }) {
                 </nav>
             </div>
         </section>
-    )
+    );
 }
 
-export default OrderAdmin
+export default OrderAdmin;

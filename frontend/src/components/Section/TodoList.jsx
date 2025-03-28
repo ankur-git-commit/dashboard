@@ -1,11 +1,11 @@
-import { FaPlayCircle } from "react-icons/fa"
-import { FaList } from "react-icons/fa"
-import { Link } from "react-router"
-import MetricCard from "../Metrics/MetricCard"
+import { FaPlayCircle } from "react-icons/fa";
+import { FaList } from "react-icons/fa";
+import { Link } from "react-router";
+import MetricCard from "../Metrics/MetricCard";
 
 function TodoList({ headerStyle }) {
     return (
-        <section className="shadow h-full flex flex-col">
+        <section className="flex h-full flex-col shadow">
             <header className={headerStyle}>
                 <span className="flex flex-row items-center gap-2">
                     Todo List
@@ -14,8 +14,8 @@ function TodoList({ headerStyle }) {
                 <FaList />
             </header>
 
-            <div className="flex flex-col flex-grow gap-4 bg-white px-3 py-6 tracking-tight">
-                <div className={`flex flex-row justify-between flex-wrap`}>
+            <div className="flex flex-grow flex-col gap-4 bg-white px-3 py-6 tracking-tight">
+                <div className={`flex flex-row flex-wrap justify-between`}>
                     <div className="flex flex-col gap-4">
                         <h3 className="text-xl font-semibold">
                             {" "}
@@ -49,7 +49,7 @@ function TodoList({ headerStyle }) {
                     </div>
                 </div>
                 <h4 className="font-semibold">Overdue details:</h4>
-                <div className="flex gap-1 text-center flex-wrap">
+                <div className="flex flex-wrap gap-1 text-center">
                     <MetricCard
                         title={"Ship"}
                         value={7}
@@ -90,7 +90,7 @@ function TodoList({ headerStyle }) {
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
-export default TodoList
+export default TodoList;

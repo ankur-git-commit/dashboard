@@ -1,14 +1,14 @@
-import { IoIosMailOpen } from "react-icons/io"
-import { FaPlayCircle } from "react-icons/fa"
-import { FaRegQuestionCircle } from "react-icons/fa"
-import MetricCard from "../Metrics/MetricCard"
+import { IoIosMailOpen } from "react-icons/io";
+import { FaPlayCircle } from "react-icons/fa";
+import { FaRegQuestionCircle } from "react-icons/fa";
+import MetricCard from "../Metrics/MetricCard";
 
-import { Link } from "react-router"
+import { Link } from "react-router";
 
 function InsertMail({ headerStyle, bodyStyle }) {
-    const date = new Date().toISOString().split("T")[0]
+    const date = new Date().toISOString().split("T")[0];
     return (
-        <section className="shadow h-full flex flex-col">
+        <section className="flex h-full flex-col shadow">
             <header className={headerStyle}>
                 <span className="flex flex-row items-center gap-2">
                     Insert Mail (use App)
@@ -20,10 +20,10 @@ function InsertMail({ headerStyle, bodyStyle }) {
                 </span>{" "}
                 <IoIosMailOpen />
             </header>
-            <div className={`${bodyStyle} flex-grow `}>
+            <div className={`${bodyStyle} flex-grow`}>
                 <div className="flex flex-col gap-4">
                     <h3 className="text-xl font-semibold">Insertions:</h3>
-                    <div className="flex gap-2 flex-wrap">
+                    <div className="flex flex-wrap gap-2">
                         <MetricCard
                             title={"Today"}
                             value={0}
@@ -77,7 +77,7 @@ function InsertMail({ headerStyle, bodyStyle }) {
                 </div>
             </div>
         </section>
-    )
+    );
 }
 
-export default InsertMail
+export default InsertMail;
