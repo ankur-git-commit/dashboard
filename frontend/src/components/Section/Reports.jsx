@@ -3,12 +3,12 @@ import { Link } from "react-router";
 
 function Reports({ headerStyle }) {
     return (
-        <section className="flex h-full flex-col shadow">
+        <section className="flex h-full flex-col rounded-lg bg-white shadow">
             <header className={headerStyle}>
                 Reports
                 <BiSolidReport />
             </header>
-            <div className="flex flex-row rounded-b bg-white px-3 py-6 tracking-tight">
+            <div className="flex flex-row rounded-b-lg bg-white px-3 py-6 tracking-tight">
                 <nav className="flex flex-1 flex-col gap-1 text-base">
                     <Link to="/" className="hover:underline">
                         USPS Quarterly Report

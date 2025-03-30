@@ -12,9 +12,9 @@ import Payments from "./Section/Payments";
 function Content() {
     const className = {
         headerStyle:
-            "flex flex-row w-full items-center justify-between bg-[#004E91] px-4 py-2 rounded-t font-semibold text-xl text-white",
+            "flex flex-row w-full items-center justify-between bg-[#004E91] px-4 py-2 rounded-t-lg font-semibold text-xl text-white",
         bodyStyle:
-            "flex flex-row justify-between rounded-b bg-white px-3 py-6 tracking-tight",
+            "flex flex-row justify-between rounded-b-lg bg-white px-3 py-6 tracking-tight",
     };
 
     return (

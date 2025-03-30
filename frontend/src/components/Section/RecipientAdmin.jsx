@@ -5,7 +5,7 @@ import MetricCard from "../Metrics/MetricCard";
 
 function RecipientAdmin({ headerStyle, bodyStyle }) {
     return (
-        <section className="flex h-full flex-col shadow">
+        <section className="flex h-full flex-col shadow rounded-lg">
             <header className={headerStyle}>
                 <span className="flex flex-row items-center gap-2">
                     Recipient Admin

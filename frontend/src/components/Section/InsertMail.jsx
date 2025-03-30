@@ -8,7 +8,7 @@ import { Link } from "react-router";
 function InsertMail({ headerStyle, bodyStyle }) {
     const date = new Date().toISOString().split("T")[0];
     return (
-        <section className="flex h-full flex-col shadow">
+        <section className="flex h-full flex-col rounded-lg shadow">
             <header className={headerStyle}>
                 <span className="flex flex-row items-center gap-2">
                     Insert Mail (use App)

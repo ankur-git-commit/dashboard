@@ -5,7 +5,7 @@ import MetricCard from "../Metrics/MetricCard";
 
 function TodoList({ headerStyle }) {
     return (
-        <section className="flex h-full flex-col shadow">
+        <section className="flex h-full flex-col shadow rounded-lg">
             <header className={headerStyle}>
                 <span className="flex flex-row items-center gap-2">
                     Todo List
@@ -14,7 +14,7 @@ function TodoList({ headerStyle }) {
                 <FaList />
             </header>
 
-            <div className="flex flex-grow flex-col gap-4 bg-white px-3 py-6 tracking-tight">
+            <div className="flex flex-grow flex-col gap-4 bg-white px-3 py-6 tracking-tight rounded-lg">
                 <div className={`flex flex-row flex-wrap justify-between`}>
                     <div className="flex flex-col gap-4">
                         <h3 className="text-xl font-semibold">

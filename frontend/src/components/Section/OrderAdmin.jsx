@@ -3,12 +3,12 @@ import { Link } from "react-router";
 
 function OrderAdmin({ headerStyle }) {
     return (
-        <section className="flex h-full flex-col shadow">
+        <section className="flex h-full flex-col shadow rounded-lg">
             <header className={headerStyle}>
                 Order Admin
                 <FaShoppingCart />
             </header>
-            <div className="flex flex-col rounded-b bg-white px-3 py-6 tracking-tight">
+            <div className="flex flex-col rounded-b-lg bg-white px-3 py-6 tracking-tight">
                 <nav className="flex flex-col gap-1 text-base">
                     <Link to="/" className="hover:underline">
                         Shipped Orders

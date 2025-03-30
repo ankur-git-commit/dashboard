@@ -9,11 +9,11 @@ function AccountDetails({
     mailCenterOwner = "First Last",
 }) {
     return (
-        <section className="shadow">
+        <section className="shadow rounded-lg">
             <header className="flex w-full items-center justify-between rounded-t bg-[#004E91] px-4 py-2 text-xl font-semibold text-white">
                 {companyName} <FaStore />
             </header>
-            <div className="flex flex-row justify-between rounded-b bg-white px-3 py-6 tracking-tight">
+            <div className="flex flex-row justify-between rounded-b-lg bg-white px-3 py-6 tracking-tight">
                 <div className="mt-4 flex flex-col gap-2 text-sm">
                     <p className="text-gray-700">
                         Mail Center Name:{" "}

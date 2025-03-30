@@ -7,7 +7,7 @@ import { Link } from "react-router";
 
 function Pickups({ headerStyle }) {
     return (
-        <section className="flex h-full flex-col shadow">
+        <section className="flex h-full flex-col shadow rounded-lg">
             <header className={headerStyle}>
                 <span className="flex flex-row items-center gap-2">
                     Pickups
@@ -19,7 +19,7 @@ function Pickups({ headerStyle }) {
                 </span>
                 <FiPackage />
             </header>
-            <div className="flex flex-grow flex-col items-start gap-4 rounded-b bg-white px-3 py-6 tracking-tight">
+            <div className="flex flex-grow flex-col items-start gap-4 rounded-b-lg bg-white px-3 py-6 tracking-tight">
                 <MetricCard title={"Pickups"} />
                 <p>Create Pickup</p>
             </div>
