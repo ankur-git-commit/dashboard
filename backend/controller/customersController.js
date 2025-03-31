@@ -1,33 +1,40 @@
 import asyncHandler from "express-async-handler"
 import supabase from "../config/db.js"
 
-const lookUpMail = asyncHandler(async (req, res) => {
-    const { userName, customerName, mailboxNumber } = req.query
+const lookUpCustomer = asyncHandler(async (req, res) => {
+    console.log(req.query)
+    const { username: userName, first_name: customerName, mailbox: mailboxNumber } = req.query
 
-    let query = supabase.from("customers").select("*")
+    let query = supabase
+    .from("customers")
+    .select("*")
 
     if (userName) {
-        query = query.ilike("username", `%${userName}%`)
+        query = query.ilike("username", `%${userName}%`) 
     }
 
     if (customerName) {
-        query = query.ilike("first_name", `%${customerName}%`)
-    }
-    if (mailboxNumber) {
-        query = query.eq("mailbox", `${mailboxNumber}`)
+        query = query.ilike("first_name", `%${customerName}%`) 
     }
 
+    if (mailboxNumber) {
+        query = query.eq("mailbox", `${mailboxNumber}`) 
+    }
+    // console.log(query.url.toString())
+
     const { data, error } = await query
+    // console.log(query.url.toString())
 
     if (error) {
         res.status(500).json({ success: false, error: error.message })
     }
 
-    return res.json({
+    res.json({
         success: true,
         count: data.length,
         data,
     })
 })
 
-export { lookUpMail }
+
+export { lookUpCustomer }

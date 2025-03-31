@@ -1,8 +1,8 @@
 import express from "express"
-import { lookUpMail } from "../controller/customersController.js"
+import { lookUpCustomer } from "../controller/customersController.js"
 
 const router = express.Router()
 
-router.route("/").get(lookUpMail)
+router.route("/").get(lookUpCustomer)
 
 export { router as customerRouter }
