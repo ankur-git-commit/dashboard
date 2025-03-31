@@ -14,7 +14,7 @@ const lookUpMail = asyncHandler(async (req, res) => {
         query = query.ilike("first_name", `%${customerName}%`)
     }
     if (mailboxNumber) {
-        query = query.eq("mailbox", `%${mailboxNumber}%`)
+        query = query.eq("mailbox", `${mailboxNumber}`)
     }
 
     const { data, error } = await query

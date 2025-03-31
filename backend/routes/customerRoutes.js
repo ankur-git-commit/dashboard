@@ -1,5 +1,5 @@
 import express from "express"
-import { lookUpMail } from "../controller/customersController"
+import { lookUpMail } from "../controller/customersController.js"
 
 const router = express.Router()
 

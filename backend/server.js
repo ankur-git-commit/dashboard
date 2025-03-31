@@ -10,7 +10,6 @@ const PORT = process.env.PORT || 3000
 // Establish Supabase connection
 connectDB()
 
-
 // import path from "path"
 // import { fileURLToPath } from "url"
 // import supabase from "./config/db.js"
@@ -22,10 +21,10 @@ connectDB()
 const app = express()
 
 app.use(express.json())
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: false }))
 
+app.use("/api/customers", customerRouter)
 
-app.get('/api/customers', customerRouter)
 
 
 app.listen(PORT, () => {
