@@ -1,7 +1,9 @@
 import asyncHandler from "express-async-handler"
 import supabase from "../config/db.js"
+import { v4 as uuidv4 } from "uuid"
 
-
+// @desc get customer data
+// @route /api/customers
 const lookUpCustomer = asyncHandler(async (req, res) => {
     console.log(req.query)
     const {
@@ -63,11 +65,137 @@ const lookUpCustomer = asyncHandler(async (req, res) => {
     })
 })
 
-const addCustomer = asyncHandler(async () => {
+// helper function
+// check if username already exists
+const checkDuplicateUsername = async (username) => {
+    try {
+        const { data, error } = await supabase
+            .from("customers")
+            .select("username")
+            .eq("username", username)
+            .maybeSingle()
 
+        if (error) throw error
+
+        if (data) {
+            return true
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.error(error)
+        throw error
+    }
+}
+
+// @desc create new customer record
+// @route /api/customers
+const addCustomer = asyncHandler(async (req, res) => {
+    const userName = req.query.username
+
+    try {
+        const checkUsername = await checkDuplicateUsername(userName)
+
+        if (checkUsername) {
+            return res.status(404).json({
+                success: false,
+                message: `${userName} already exists in the database, use a unique username`,
+            })
+        }
+
+        const customerRecord = {
+            cid: uuidv4(),
+            username: userName,
+            last_name: req.query.last_name,
+            first_name: req.query.first_name,
+            company_name: req.query.company_name,
+            store: req.query.store,
+            mailbox: req.query.mailbox,
+            active: req.query.active,
+            hold: req.query.hold,
+            blocked: req.query.blocked,
+            docs_status: req.query.docs_status,
+            bill: req.query.bill,
+            country: req.query.country,
+            autoship: req.query.autoship,
+            start_date: req.query.start_date,
+            expiry_date: req.query.expiry_date,
+            last_login: req.query.last_login,
+        }
+
+        const { error } = await supabase
+            .from("customers")
+            .insert([customerRecord])
+
+        if (error) throw error
+
+        res.json({
+            success: true,
+            message: `${userName} has been added to the database`,
+        })
+    } catch (error) {
+        res.json({
+            success: false,
+            message: "Failed to add record to the db",
+            error: error.message,
+        })
+    }
 })
 
-export { lookUpCustomer, addCustomer }
+// helper function to check the validation of id
+const checkCustomerId = async (id) => {
+    try {
+        const { data, error } = await supabase
+            .from("customers")
+            .select("cid")
+            .eq("cid", id)
+            .maybeSingle()
+
+        if (data) {
+            return true
+        } else {
+            return false
+        }
+    } catch (error) {
+        console.log("Error checking customer ID:", error)
+        throw error
+    }
+}
+
+// @desc delete a customer record
+// @route /api/customers/:id
+const deleteCustomer = asyncHandler(async (req, res) => {
+    const id = req.params.id
+
+    try {
+        const IdExits = await checkCustomerId(id)
+
+        if (!IdExits) {
+            return res.status(404).json({
+                success: false,
+                message: `Customer with ID ${id} cannot be found in the DB`,
+            })
+        }
+        const { error } = await supabase
+            .from("customers")
+            .delete()
+            .eq("cid", id)
+
+        if (error) throw error
+        res.status(200).json({
+            success: true,
+            message: `Customer record with ${id} is deleted successfully`,
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "Failed to delete from the db",
+            error: error.message,
+        })
+    }
+})
+
+export { lookUpCustomer, addCustomer, deleteCustomer }
 
 /* 
 
