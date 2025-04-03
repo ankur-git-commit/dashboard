@@ -6,63 +6,72 @@ import { v4 as uuidv4 } from "uuid"
 // @route /api/customers
 const lookUpCustomer = asyncHandler(async (req, res) => {
     console.log(req.query)
-    const {
-        username: userName,
-        first_name: customerName,
-        mailbox: mailboxNumber,
-        active: activeStatusParam,
-        hold: accountOnHoldParam,
-        docs_status: documentStatus,
-    } = req.query
 
-    const accountOnHold = accountOnHoldParam === "true" ? 1 : 0
-    const activeStatus =
-        activeStatusParam === undefined
-            ? undefined
-            : activeStatusParam === "false"
-            ? 0
-            : 1
+    try {
+        const {
+            username: userName,
+            first_name: customerName,
+            mailbox: mailboxNumber,
+            active: activeStatusParam,
+            hold: accountOnHoldParam,
+            docs_status: documentStatus,
+        } = req.query
 
-    let query = supabase.from("customers").select("*")
+        const accountOnHold = accountOnHoldParam === "true" ? 1 : 0
+        const activeStatus =
+            activeStatusParam === undefined
+                ? undefined
+                : activeStatusParam === "false"
+                ? 0
+                : 1
 
-    if (userName) {
-        query = query.ilike("username", `%${userName}%`)
+        let query = supabase.from("customers").select("*")
+
+        if (userName) {
+            query = query.ilike("username", `%${userName}%`)
+        }
+
+        if (customerName) {
+            query = query.ilike("first_name", `%${customerName}%`)
+        }
+
+        if (mailboxNumber) {
+            query = query.eq("mailbox", `${mailboxNumber}`)
+        }
+
+        if (activeStatus) {
+            query = query.eq("active", `${activeStatus}`)
+        }
+
+        if (accountOnHold) {
+            query = query.eq("hold", `${accountOnHold}`)
+        }
+
+        if (documentStatus) {
+            query = query.eq("docs_status", `${documentStatus}`)
+        }
+
+        console.log(query.url.toString())
+
+        const { data, error } = await query
+        // console.log(query.url.toString())
+
+        if (error) {
+            res.status(500).json({ success: false, error: error.message })
+        }
+
+        res.status(200).json({
+            success: true,
+            count: data.length,
+            data,
+        })
+    } catch (error) {
+        res.status(500).json({
+            success: false,
+            message: "fetching failed",
+            error: error.message,
+        })
     }
-
-    if (customerName) {
-        query = query.ilike("first_name", `%${customerName}%`)
-    }
-
-    if (mailboxNumber) {
-        query = query.eq("mailbox", `${mailboxNumber}`)
-    }
-
-    if (activeStatus) {
-        query = query.eq("active", `${activeStatus}`)
-    }
-
-    if (accountOnHold) {
-        query = query.eq("hold", `${accountOnHold}`)
-    }
-
-    if (documentStatus) {
-        query = query.eq("docs_status", `${documentStatus}`)
-    }
-
-    console.log(query.url.toString())
-
-    const { data, error } = await query
-    // console.log(query.url.toString())
-
-    if (error) {
-        res.status(500).json({ success: false, error: error.message })
-    }
-
-    res.json({
-        success: true,
-        count: data.length,
-        data,
-    })
 })
 
 // helper function
@@ -103,6 +112,8 @@ const addCustomer = asyncHandler(async (req, res) => {
             })
         }
 
+        const currDate = new Date()
+
         const customerRecord = {
             cid: uuidv4(),
             username: userName,
@@ -118,9 +129,12 @@ const addCustomer = asyncHandler(async (req, res) => {
             bill: req.query.bill,
             country: req.query.country,
             autoship: req.query.autoship,
-            start_date: req.query.start_date,
-            expiry_date: req.query.expiry_date,
-            last_login: req.query.last_login,
+            start_date: currDate.toISOString(),
+            expiry_date: (() => {
+                const expiryDate = new Date(currDate)
+                expiryDate.setFullYear(expiryDate.getFullYear() + 1)
+                return expiryDate.toISOString()
+            })(),
         }
 
         const { error } = await supabase
@@ -129,12 +143,12 @@ const addCustomer = asyncHandler(async (req, res) => {
 
         if (error) throw error
 
-        res.json({
+        res.status(200).json({
             success: true,
             message: `${userName} has been added to the database`,
         })
     } catch (error) {
-        res.json({
+        res.status(500).json({
             success: false,
             message: "Failed to add record to the db",
             error: error.message,
@@ -142,7 +156,8 @@ const addCustomer = asyncHandler(async (req, res) => {
     }
 })
 
-// helper function to check the validation of id
+// helper function
+// check for duplicate ID
 const checkCustomerId = async (id) => {
     try {
         const { data, error } = await supabase

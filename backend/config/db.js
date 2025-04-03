@@ -13,7 +13,7 @@ const supabase = createClient(URL, MAIN_KEY)
 const connectDB = async () => {
     try {
         console.log(
-            `The connection to supabase has been established at ${URL} `
+            `The connection to supabase has been established at ${URL}`.cyan.underline
         )
 
     } catch (error) {

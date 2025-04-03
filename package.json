@@ -1,24 +1,28 @@
 {
-  "name": "ipostal",
-  "version": "1.0.0",
-  "description": "",
-  "main": "server.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "server": "nodemon backend/server.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "module",
-  "dependencies": {
-    "@supabase/supabase-js": "^2.49.4",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "express-async-handler": "^1.2.0",
-    "uuid": "^11.1.0"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.9"
-  }
+    "name": "ipostal",
+    "version": "1.0.0",
+    "description": "",
+    "main": "server.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "server": "nodemon backend/server.js",
+        "client": "cd frontend && npm run dev",
+        "dev": "concurrently \"npm run server\" \"npm run client\""
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "type": "module",
+    "dependencies": {
+        "@supabase/supabase-js": "^2.49.4",
+        "dotenv": "^16.4.7",
+        "express": "^4.21.2",
+        "express-async-handler": "^1.2.0",
+        "uuid": "^11.1.0"
+    },
+    "devDependencies": {
+        "colors": "^1.4.0",
+        "concurrently": "^9.1.2",
+        "nodemon": "^3.1.9"
+    }
 }
