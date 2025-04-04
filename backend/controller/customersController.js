@@ -17,13 +17,12 @@ const lookUpCustomer = asyncHandler(async (req, res) => {
             docs_status: documentStatus,
         } = req.query
 
-        const accountOnHold = accountOnHoldParam === "true" ? 1 : 0
+        const accountOnHold = accountOnHoldParam === "" ? 1 : accountOnHoldParam
         const activeStatus =
-            activeStatusParam === undefined
+            activeStatusParam === undefined || activeStatusParam === null
                 ? undefined
-                : activeStatusParam === "false"
-                ? 0
-                : 1
+                : activeStatusParam
+
 
         let query = supabase.from("customers").select("*")
 
