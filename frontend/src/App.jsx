@@ -1,18 +1,38 @@
+import { Routes, Route, Outlet } from "react-router";
 import NavBar from "./components/NavBar";
 import Content from "./components/Content";
 import Footer from "./components/Footer";
 import CustomerLookup from "./components/Table/Customer/CustomerLookup";
-import CustomerResults from "./components/Table/Customer/CustomerResults";
+import CustomerAddForm from "./components/Table/Customer/CustomerAddForm";
 
-import TempTable from "./components/Table/Customer/TempTable";
+const Layout = () => {
+    return (
+        <>
+            <NavBar />
+            <main>
+                <Outlet />
+            </main>
+            <Footer />
+        </>
+    );
+};
 
 function App() {
     return (
         <>
-            <NavBar />
-            {/* <Content /> */}
-            <CustomerLookup />
-            <Footer />
+            <Routes>
+                <Route element={<Layout />}>
+                    <Route index element={<Content />} />
+                    <Route
+                        path="/recipient_lookup"
+                        element={<CustomerLookup />}
+                    />
+                    <Route
+                        path="/recipient_add"
+                        element={<CustomerAddForm />}
+                    />
+                </Route>
+            </Routes>
         </>
     );
 }

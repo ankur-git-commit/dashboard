@@ -3,7 +3,7 @@ import CustomerResults from "./CustomerResults";
 import { useState } from "react";
 import axios from "axios";
 
-function CustomerForm() {
+function CustomerSearchForm() {
     const [activeStatus, setActiveStatus] = useState("");
     const [holdStatus, setHoldStatus] = useState("");
     const [documentStatus, setDocumentStatus] = useState("");
@@ -50,7 +50,7 @@ function CustomerForm() {
     };
 
     const className = {
-        selectBox: `border-1 bg-white rounded-sm w-50`,
+        selectBox: `border bg-white rounded-sm w-50`,
         inputBox: `border bg-white rounded-sm pl-1`,
         formSelectAlignment: `flex justify-between gap-80`,
         formInputAlignment: `flex justify-between gap-5`,
@@ -168,4 +168,4 @@ function CustomerForm() {
     );
 }
 
-export default CustomerForm;
+export default CustomerSearchForm;

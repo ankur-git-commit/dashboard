@@ -5,7 +5,7 @@ import MetricCard from "../Metrics/MetricCard";
 
 function RecipientAdmin({ headerStyle, bodyStyle }) {
     return (
-        <section className="flex h-full flex-col shadow rounded-lg">
+        <section className="flex h-full flex-col rounded-lg shadow">
             <header className={headerStyle}>
                 <span className="flex flex-row items-center gap-2">
                     Recipient Admin
@@ -21,13 +21,13 @@ function RecipientAdmin({ headerStyle, bodyStyle }) {
                 <div className="text-end">
                     <h3 className="text-base font-semibold">Quick Links</h3>
                     <nav className="flex flex-col gap-1 text-xs">
-                        <Link to="/" className="hover:underline">
+                        <Link to="/recipient_lookup" className="hover:underline">
                             Recipient Lookup
                         </Link>
                         <Link to="/" className="hover:underline">
                             Send Email
                         </Link>
-                        <Link to="/" className="hover:underline">
+                        <Link to="/recipient_add" className="hover:underline">
                             Manually add Recipient
                         </Link>
                         <Link to="/" className="hover:underline">

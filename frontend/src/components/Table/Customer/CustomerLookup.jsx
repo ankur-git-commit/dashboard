@@ -1,12 +1,12 @@
 /* eslint-disable no-unused-vars */
 
-import CustomerForm from "./CustomerForm";
+import CustomerSearchForm from "./CustomerSearchForm";
 
 function CustomerLookup() {
 
     return (
         <>
-            <CustomerForm />
+            <CustomerSearchForm />
         </>
     );
 }

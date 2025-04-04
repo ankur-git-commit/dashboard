@@ -20,12 +20,15 @@ function CustomerResults({ data }) {
         columnHelper.accessor("cid", {
             header: "CID",
             cell: (info) => info.getValue(),
+            // Set a fixed width for CID column
+            meta: { width: "w-24" },
         }),
         columnHelper.accessor("username", {
             header: "Username",
             cell: (info) => (
                 <span className="font-bold">{info.getValue()}</span>
             ),
+            meta: { width: "w-32" },
         }),
         columnHelper.accessor(
             (row) => `${row.first_name || ""} ${row.last_name || ""}`,
@@ -34,51 +37,63 @@ function CustomerResults({ data }) {
                 cell: (info) => (
                     <span className="font-bold">{info.getValue()}</span>
                 ),
+                meta: { width: "w-40" },
             },
         ),
         columnHelper.accessor("company_name", {
             header: "Company",
             cell: (info) => info.getValue(),
+            meta: { width: "w-40" },
         }),
         columnHelper.accessor("store", {
             header: "Store",
             cell: (info) => info.getValue(),
+            meta: { width: "w-32" },
         }),
         columnHelper.accessor("country", {
             header: "Country",
             cell: (info) => info.getValue(),
+            meta: { width: "w-24" },
         }),
         columnHelper.accessor("mailbox", {
             header: "Mailbox #",
             cell: (info) => info.getValue(),
+            meta: { width: "w-20" },
         }),
         columnHelper.accessor("docs_status", {
             header: "Doc Status",
             cell: (info) => info.getValue(),
+            meta: { width: "w-28" },
         }),
         columnHelper.accessor("active", {
             header: "Active",
             cell: (info) => (info.getValue() === 1 ? "Y" : "N"),
+            meta: { width: "w-16" },
         }),
         columnHelper.accessor("hold", {
             header: "Hold",
             cell: (info) => (info.getValue() === 1 ? "Y" : "N"),
+            meta: { width: "w-16" },
         }),
         columnHelper.accessor("autoship", {
             header: "Auto Ship",
             cell: (info) => info.getValue(),
+            meta: { width: "w-20" },
         }),
         columnHelper.accessor("start_date", {
             header: "Start Date",
             cell: (info) => info.getValue(),
+            meta: { width: "w-32" },
         }),
         columnHelper.accessor("expiry_date", {
             header: "Expiry Date",
             cell: (info) => info.getValue(),
+            meta: { width: "w-32" },
         }),
         columnHelper.accessor("last_login", {
             header: "Last Login",
             cell: (info) => info.getValue(),
+            meta: { width: "w-32" },
         }),
     ];
 
@@ -100,14 +115,17 @@ function CustomerResults({ data }) {
     return (
         <div className="w-full overflow-x-auto rounded-lg border border-gray-200 shadow">
             {/* Table container with shadow, border and rounded corners */}
-            <table className="w-full divide-y divide-gray-200">
+            <table className="w-full table-fixed divide-y divide-gray-200">
                 <thead className="bg-[#C9C9C9]">
                     {table.getHeaderGroups().map((headerGroup) => (
                         <tr key={headerGroup.id}>
                             {headerGroup.headers.map((header) => (
                                 <th
                                     key={header.id}
-                                    className="px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-700 uppercase"
+                                    className={`px-6 py-3 text-left text-xs font-medium tracking-wider text-gray-700 uppercase ${
+                                        header.column.columnDef.meta?.width ||
+                                        ""
+                                    }`}
                                 >
                                     {flexRender(
                                         header.column.columnDef.header,
@@ -127,7 +145,9 @@ function CustomerResults({ data }) {
                             {row.getVisibleCells().map((cell) => (
                                 <td
                                     key={cell.id}
-                                    className="px-6 py-4 text-xs whitespace-nowrap text-gray-900"
+                                    className={`overflow-hidden px-6 py-4 text-xs text-ellipsis whitespace-nowrap text-gray-900 ${
+                                        cell.column.columnDef.meta?.width || ""
+                                    }`}
                                 >
                                     {flexRender(
                                         cell.column.columnDef.cell,

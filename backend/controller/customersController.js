@@ -23,7 +23,6 @@ const lookUpCustomer = asyncHandler(async (req, res) => {
                 ? undefined
                 : activeStatusParam
 
-
         let query = supabase.from("customers").select("*")
 
         if (userName) {
@@ -99,7 +98,9 @@ const checkDuplicateUsername = async (username) => {
 // @desc create new customer record
 // @route /api/customers
 const addCustomer = asyncHandler(async (req, res) => {
-    const userName = req.query.username
+    console.log(req.body)
+    const userData = req.body
+    const userName = userData.username
 
     try {
         const checkUsername = await checkDuplicateUsername(userName)
@@ -116,18 +117,19 @@ const addCustomer = asyncHandler(async (req, res) => {
         const customerRecord = {
             cid: uuidv4(),
             username: userName,
-            last_name: req.query.last_name,
-            first_name: req.query.first_name,
-            company_name: req.query.company_name,
-            store: req.query.store,
-            mailbox: req.query.mailbox,
-            active: req.query.active,
-            hold: req.query.hold,
-            blocked: req.query.blocked,
-            docs_status: req.query.docs_status,
-            bill: req.query.bill,
-            country: req.query.country,
-            autoship: req.query.autoship,
+            last_name: userData.last_name,
+            first_name: userData.first_name,
+            company_name: userData.company_name,
+            store: userData.store,
+            mailbox: userData.mailbox === "" ? null : userData.mailbox,
+            // active: userData.active,
+            // hold: userData.hold,
+            // blocked: userData.blocked,
+            // docs_status: userData.docs_status,
+            // bill: userData.bill,
+            country: userData.country,
+            virtual_office: userData.virtual_office,
+            autoship: userData.autoship,
             start_date: currDate.toISOString(),
             expiry_date: (() => {
                 const expiryDate = new Date(currDate)
@@ -156,7 +158,7 @@ const addCustomer = asyncHandler(async (req, res) => {
 })
 
 // helper function
-// check for duplicate ID
+// check if ID exists
 const checkCustomerId = async (id) => {
     try {
         const { data, error } = await supabase
