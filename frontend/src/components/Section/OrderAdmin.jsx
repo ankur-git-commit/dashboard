@@ -13,7 +13,7 @@ function OrderAdmin({ headerStyle }) {
                     <Link to="/" className="hover:underline">
                         Shipped Orders
                     </Link>
-                    <Link to="/" className="hover:underline">
+                    <Link to="/order_lookup" className="hover:underline">
                         Order Lookup
                     </Link>
                     <Link to="/" className="hover:underline">

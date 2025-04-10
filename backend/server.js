@@ -1,10 +1,11 @@
 import express from "express"
 import dotenv from "dotenv"
-import colors from 'colors'
+import colors from "colors"
 dotenv.config()
 import { connectDB } from "./config/db.js"
 import supabase from "./config/db.js"
 import { customerRouter } from "./routes/customerRoutes.js"
+import { orderRouter } from "./routes/ordersRoutes.js"
 
 // Define server PORT
 const PORT = process.env.PORT || 3000
@@ -25,8 +26,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
 app.use("/api/customers", customerRouter)
-
-
+app.use("/api/orders", orderRouter)
 
 app.listen(PORT, () => {
     console.log(`server is running at PORT : ${PORT}`)

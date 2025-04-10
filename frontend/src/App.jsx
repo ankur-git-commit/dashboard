@@ -4,6 +4,7 @@ import Content from "./components/Content";
 import Footer from "./components/Footer";
 import CustomerLookup from "./components/Table/Customer/CustomerLookup";
 import CustomerAddForm from "./components/Table/Customer/CustomerAddForm";
+import OrderSearchForm from "./components/Table/Order/OrderSearchForm";
 
 const Layout = () => {
     return (
@@ -31,6 +32,7 @@ function App() {
                         path="/recipient_add"
                         element={<CustomerAddForm />}
                     />
+                    <Route path="/order_lookup" element={<OrderSearchForm />} />
                 </Route>
             </Routes>
         </>
