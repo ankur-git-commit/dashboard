@@ -1,46 +1,51 @@
 /* eslint-disable no-unused-vars */
 import { useState } from "react";
 import axios from "axios";
+import products from "./products";
 
 function OrderSearchForm() {
-    const [orderStatus, setOrderStatus] = useState("");
-    const [productStatus, setProductStatus] = useState("");
-    const [documentStatus, setDocumentStatus] = useState("");
+    const [orderId, setOrderId] = useState("");
     const [recipientSearch, setRecipientSearch] = useState("");
-    const [mailboxSearch, setMailboxSearch] = useState("");
-    const [resultData, setResultData] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
+    const [product, setProduct] = useState("");
+    const [orderStatus, setOrderStatus] = useState("");
 
-    const handleOrderStatus = (event) => {
-        // setActiveStatus(event.target.value);
+    const [resultData, setResultData] = useState({});
+
+    const handleProductSearch = (event) => {
+        setProduct(event.target.value);
     };
-    const handleProduct = (event) => {
-        // setHoldStatus(event.target.value);
-    };
-    const handleDocumentStatus = (event) => {
-        // setDocumentStatus(event.target.value);
+    const handleOrderId = (event) => {
+        setOrderId(event.target.value);
     };
     const handleRecipientSearch = (event) => {
         setRecipientSearch(event.target.value);
     };
-    const handleMailboxSearch = (event) => {
-        setMailboxSearch(event.target.value);
+    const handleOrderStatus = (event) => {
+        setOrderStatus(event.target.value);
     };
 
-    const handleSubmit = (event) => {
+    // const handleSubmit = (event) => {
+    //     event.preventDefault();
+    // };
+
+    const handleSearchEvent = async (event) => {
         event.preventDefault();
-    };
-
-    const handleSearchEvent = async () => {
         const queryParams = new URLSearchParams();
 
+        if (orderId) queryParams.append('id', orderId)
+        if (recipientSearch) queryParams.append('customers', recipientSearch)
+        if (product) queryParams.append('products', product)
+        if (orderStatus) queryParams.append('order_status', orderStatus)
 
-        console.log(queryParams.toString());
+
+        // console.log(typeof queryParams.toString())
+
+        // console.log(queryParams.toString());
         const response = await axios.get(
-            `/api/customers/?${queryParams.toString()}`,
+            `/api/orders/?${queryParams.toString()}`,
         );
         setResultData(response.data.data);
+        console.log(resultData)
     };
 
     const className = {
@@ -56,7 +61,7 @@ function OrderSearchForm() {
                 <h1 className="pb-10 text-4xl text-[#616060]">
                     Recipient Lookup
                 </h1>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSearchEvent}>
                     <div className="flex justify-between text-sm font-light">
                         <div className="flex flex-col gap-1">
                             <div className={className.formSelectAlignment}>
@@ -67,12 +72,22 @@ function OrderSearchForm() {
                                     name="order-id"
                                     id="order-id"
                                     className={className.selectBox}
-                                    value={productStatus}
-                                    onChange={handleProduct}
+                                    value={product}
+                                    onChange={handleProductSearch}
                                 >
-                                    <option value="">Active Recipients</option>
-                                    <option value="1">Active</option>
-                                    <option value="0">Non Active</option>
+                                    <option value="">
+                                        All Product/Services
+                                    </option>
+                                    {products.map((item, index) => {
+                                        return (
+                                            <option
+                                                key={index}
+                                                value={item.product}
+                                            >
+                                                {item.product}
+                                            </option>
+                                        );
+                                    })}
                                 </select>
                             </div>
                             <div className={className.formSelectAlignment}>
@@ -86,43 +101,43 @@ function OrderSearchForm() {
                                     value={orderStatus}
                                     onChange={handleOrderStatus}
                                 >
-                                    <option value="">All Recipients</option>
-                                    <option value="1">Hold</option>
-                                    <option value="0">Not On Hold</option>
+                                    <option value="">All Order Statuses</option>
+                                    <option value="Paid">Paid</option>
+                                    <option value="Shipped">Shipped</option>
                                 </select>
                             </div>
                         </div>
                         <div className="flex flex-col gap-1">
                             <div className={className.formInputAlignment}>
-                                <label htmlFor="order-id">
-                                    Order Id:
-                                </label>
+                                <label htmlFor="order-id">Order Id:</label>
                                 <input
                                     type="text"
                                     name="order-id"
                                     id="order-id"
+                                    pattern="[0-9]{1,8}"
+                                    maxLength={8}
                                     className={className.inputBox}
-                                    value={recipientSearch}
-                                    onChange={handleRecipientSearch}
+                                    value={orderId}
+                                    onChange={handleOrderId}
                                 />
                             </div>
                             <div className={className.formInputAlignment}>
                                 <label htmlFor="mailbox-search">
-                                    Mailbox Search:
+                                    Recipient Name/Company:
                                 </label>
                                 <input
                                     type="text"
                                     name="mailbox-search"
                                     id="mailbox-search"
                                     className={className.inputBox}
-                                    value={mailboxSearch}
-                                    onChange={handleMailboxSearch}
+                                    value={recipientSearch}
+                                    onChange={handleRecipientSearch}
                                 />
                             </div>
                             <div className="flex justify-end">
                                 <button
                                     type="submit"
-                                    onClick={() => handleSearchEvent()}
+                                    // onClick={() => handleSearchEvent()}
                                     className="w-1/2 rounded-md border-1 bg-[#003283] text-white hover:bg-[#0055aa]"
                                 >
                                     Search

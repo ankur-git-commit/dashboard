@@ -26,6 +26,10 @@ function CustomerAddForm() {
     const [formError, setFormError] = useState(null);
 
     const handleChange = (event) => {
+        // console.log(event.target.name)
+        // console.log(event.target.value)
+        // console.log(event.type)
+        console.log(event)
         const { name, value } = event.target;
         setFormData({
             ...formData,

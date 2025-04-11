@@ -10,10 +10,13 @@ const orderLookup = expressAsyncHandler(async (req, res) => {
 
         let query = supabase.from("orders").select("*")
 
-        // console.log(query.url.toString())
+        if (customer_first_name) {
+            console.log('yes')
+        }
+
 
         if (id_number) {
-            query = query.ilike("id", `%${id_number}%`)
+            query = query.eq("id", `${id_number}`)
             // query = query.ilike("username", `%${userName}%`)
 
         }
@@ -26,6 +29,9 @@ const orderLookup = expressAsyncHandler(async (req, res) => {
         if (error) {
             res.status(500).json({ success: false, error: error.message })
         }
+
+        console.log(query.url.toString())
+
 
         res.status(200).json({
             success: true,
