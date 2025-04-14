@@ -2,6 +2,7 @@
 import { useState } from "react";
 import axios from "axios";
 import products from "./products";
+import OrderResults from "./OrderResults";
 
 function OrderSearchForm() {
     const [orderId, setOrderId] = useState("");
@@ -147,6 +148,7 @@ function OrderSearchForm() {
                     </div>
                 </form>
             </div>
+            <OrderResults data={resultData} />
         </>
     );
 }

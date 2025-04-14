@@ -6,22 +6,29 @@ const orderLookup = expressAsyncHandler(async (req, res) => {
     console.log(req.query)
 
     try {
-        const { id: id_number, customers: customer_first_name } = req.query
+        const {
+            id: id_number,
+            customers: customer_first_name,
+            product: product_type,
+            order_status: orderStatus
+        } = req.query
 
         let query = supabase.from("orders").select("*")
 
         if (customer_first_name) {
-            console.log('yes')
+            console.log("yes")
         }
-
 
         if (id_number) {
             query = query.eq("id", `${id_number}`)
             // query = query.ilike("username", `%${userName}%`)
-
         }
         if (customer_first_name) {
             query = query.ilike("customers", `%${customer_first_name}%`)
+        }
+
+        if (orderStatus){
+            query = query.eq("order_status", `${orderStatus}`)
         }
 
         const { data, error } = await query
@@ -31,7 +38,6 @@ const orderLookup = expressAsyncHandler(async (req, res) => {
         }
 
         console.log(query.url.toString())
-
 
         res.status(200).json({
             success: true,
@@ -49,8 +55,6 @@ const orderLookup = expressAsyncHandler(async (req, res) => {
 
 const addOrder = expressAsyncHandler(async (req, res) => {})
 
-const deleteOrder = expressAsyncHandler(async(req,res) => {
-    
-})
+const deleteOrder = expressAsyncHandler(async (req, res) => {})
 
 export { orderLookup, addOrder }
