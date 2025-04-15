@@ -14,7 +14,7 @@ function OrderSearchForm() {
 
     // Pagination State
     const [currentPage, setCurrentPage] = useState(0);
-    const [perPage, setPerPage] = useState(20);
+    const [perPage, setPerPage] = useState(15);
     const [isLoading, setIsLoading] = useState(false);
 
     const handleProductSearch = (event) => {

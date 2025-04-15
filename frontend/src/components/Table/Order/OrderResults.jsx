@@ -146,14 +146,25 @@ function OrderResults({
                             min="1"
                             max={totalPages || 1}
                             defaultValue={currentPage + 1}
-                            onChange={(e) => {
-                                const page = e.target.value
-                                    ? Number(e.target.value) - 1
-                                    : 0;
-                                if (page >= 0 && page < (totalPages || 1)) {
-                                    onPageChange(page);
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter") {
+                                    e.preventDefault();
+                                    const page = e.target.value
+                                        ? Number(e.target.value) - 1
+                                        : 0;
+                                    if (page >= 0 && page < (totalPages || 1)) {
+                                        onPageChange(page);
+                                    }
                                 }
                             }}
+                            // onChange={(e) => {
+                            //     const page = e.target.value
+                            //         ? Number(e.target.value) - 1
+                            //         : 0;
+                            //     if (page >= 0 && page < (totalPages || 1)) {
+                            //         onPageChange(page);
+                            //     }
+                            // }}
                             className="w-16 rounded border text-center"
                             aria-label="Go to page"
                         />
