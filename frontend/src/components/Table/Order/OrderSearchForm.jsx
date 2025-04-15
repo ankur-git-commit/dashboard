@@ -12,6 +12,11 @@ function OrderSearchForm() {
 
     const [resultData, setResultData] = useState({});
 
+    // Pagination State
+    const [currentPage, setCurrentPage] = useState(0);
+    const [perPage, setPerPage] = useState(20);
+    const [isLoading, setIsLoading] = useState(false);
+
     const handleProductSearch = (event) => {
         setProduct(event.target.value);
     };
@@ -25,28 +30,51 @@ function OrderSearchForm() {
         setOrderStatus(event.target.value);
     };
 
-    // const handleSubmit = (event) => {
-    //     event.preventDefault();
-    // };
-
     const handleSearchEvent = async (event) => {
         event.preventDefault();
+        await fetchOrders(0);
+    };
+
+    const fetchOrders = async (page) => {
+        setIsLoading(true);
         const queryParams = new URLSearchParams();
 
-        if (orderId) queryParams.append('id', orderId)
-        if (recipientSearch) queryParams.append('customers', recipientSearch)
-        if (product) queryParams.append('products', product)
-        if (orderStatus) queryParams.append('order_status', orderStatus)
-
+        if (orderId) queryParams.append("id", orderId);
+        if (recipientSearch) queryParams.append("customers", recipientSearch);
+        if (product) queryParams.append("products", product); // Make sure this matches the parameter name in the backend
+        if (orderStatus) queryParams.append("order_status", orderStatus);
 
         // console.log(typeof queryParams.toString())
 
         // console.log(queryParams.toString());
-        const response = await axios.get(
-            `/api/orders/?${queryParams.toString()}`,
-        );
-        setResultData(response.data.data);
-        console.log(resultData)
+
+        queryParams.append("page", page); // start with first page
+        queryParams.append("per_page", perPage); //Number of records per page
+
+        try {
+            console.log(`Fetching orders with params: ${queryParams.toString()}`);
+            const response = await axios.get(
+                `/api/orders/?${queryParams.toString()}`,
+            );
+            console.log("API response: ", response.data);
+            console.log(`Received ${response.data.data.length} records for page ${response.data.page}`);
+            console.log(`Total records: ${response.data.count}, Total pages: ${response.data.total_pages}`);
+
+            setResultData(response.data);
+            setCurrentPage(response.data.page);
+        } catch (error) {
+            console.error("Error fetching orders:", error);
+            // Show error in the UI
+            setResultData({
+                success: false,
+                data: [],
+                count: 0,
+                total_pages: 0,
+                error: error.message
+            });
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const className = {
@@ -148,7 +176,17 @@ function OrderSearchForm() {
                     </div>
                 </form>
             </div>
-            <OrderResults data={resultData} />
+
+            <OrderResults
+                data={resultData.data || []}
+                pagination={{
+                    currentPage,
+                    totalPages: resultData.total_pages || 0,
+                    totalRecords: resultData.count || 0,
+                }}
+                onPageChange={(newPage) => fetchOrders(newPage)}
+                isLoading={isLoading}
+            />
         </>
     );
 }

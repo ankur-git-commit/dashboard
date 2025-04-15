@@ -8,11 +8,13 @@ import {
     getPaginationRowModel,
 } from "@tanstack/react-table";
 
-function OrderResults({ data }) {
-    const [pagination, setPagination] = useState({
-        pageIndex: 0,
-        pageSize: 15,
-    });
+function OrderResults({
+    data = [],
+    pagination = { currentPage: 0, totalPages: 0, totalRecords: 0 },
+    onPageChange,
+    isLoading = false,
+}) {
+    const { currentPage, totalPages, totalRecords } = pagination;
 
     const columnHelper = createColumnHelper();
 
@@ -52,12 +54,24 @@ function OrderResults({ data }) {
         data,
         columns,
         getCoreRowModel: getCoreRowModel(),
-        getPaginationRowModel: getPaginationRowModel(),
-        onPaginationChange: setPagination,
-        state: {
-            pagination,
-        },
     });
+
+    if (isLoading) {
+        return (
+            <div className="p-4 text-center">
+                <p className="text-lg font-medium">Loading orders...</p>
+            </div>
+        );
+    }
+
+    if (!data || data.length === 0) {
+        return (
+            <div className="p-4 text-center">
+                <p className="text-lg font-medium">No results found</p>
+                <p className="text-sm text-gray-500">Try adjusting your search criteria</p>
+            </div>
+        );
+    }
     return (
         <div className="w-full overflow-x-auto rounded-lg border border-gray-200 shadow">
             <table className="w-full table-fixed divide-y divide-gray-200">
@@ -101,28 +115,27 @@ function OrderResults({ data }) {
                     ))}
                 </tbody>
             </table>
-            <div>
-                
-                <div className="flex justify-center gap-5 p-1">
+            <div className="bg-gray-50 py-3">
+                <div className="flex items-center justify-center gap-5 p-1">
                     <button
-                        onClick={() => table.previousPage()}
-                        disabled={!table.getCanPreviousPage()}
-                        className="rounded border px-1"
+                        onClick={() => onPageChange(currentPage - 1)}
+                        disabled={currentPage === 0 || isLoading}
+                        className="rounded border px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                        aria-label="Previous page"
                     >
                         {"<"}
                     </button>
                     <span className="flex items-center gap-1">
                         <div>Page</div>
                         <strong>
-                            {table.getState().pagination.pageIndex + 1}
-                            {"  "} of {"  "}
-                            {table.getPageCount().toLocaleString()}
+                            {currentPage + 1} of {totalPages || 1}
                         </strong>
                     </span>
                     <button
-                        onClick={() => table.nextPage()}
-                        disabled={!table.getCanNextPage()}
-                        className="rounded border px-1"
+                        onClick={() => onPageChange(currentPage + 1)}
+                        disabled={currentPage >= totalPages - 1 || isLoading || totalPages === 0}
+                        className="rounded border px-2 py-1 disabled:opacity-50 disabled:cursor-not-allowed"
+                        aria-label="Next page"
                     >
                         {">"}
                     </button>
@@ -131,18 +144,22 @@ function OrderResults({ data }) {
                         <input
                             type="number"
                             min="1"
-                            max={table.getPageCount()}
-                            defaultValue={
-                                table.getState().pagination.pageIndex + 1
-                            }
+                            max={totalPages || 1}
+                            defaultValue={currentPage + 1}
                             onChange={(e) => {
                                 const page = e.target.value
                                     ? Number(e.target.value) - 1
                                     : 0;
-                                table.setPageIndex(page);
+                                if (page >= 0 && page < (totalPages || 1)) {
+                                    onPageChange(page);
+                                }
                             }}
                             className="w-16 rounded border text-center"
+                            aria-label="Go to page"
                         />
+                    </span>
+                    <span className="text-sm text-gray-500">
+                        (Total: {totalRecords} records)
                     </span>
                 </div>
             </div>
